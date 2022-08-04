@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "People";
+}
+
+<h2>@ViewBag.Title</h2>
+<input type="button" value="refrescar" onclick="Get()" />
+
+<div id="DivLista" style="border:1px solid #535050;">
+    
+</div>
+
+<script>
+    urlGet = "@Url.Content("~/People/List")";
+    
+
+    function Get() {
+        fetch(urlGet)
+            .then(function (response) {
+                return response.text();
+            })
+            .then((data) => {
+                document.getElementById("DivLista").innerHTML = data;
+            })
+    }
+
+
+    Get();
+</script>

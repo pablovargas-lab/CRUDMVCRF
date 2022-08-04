@@ -1,0 +1,18 @@
+﻿@using CRUDMVCRF.Models.ViewModel
+@model List<ListPeopleViewModel>
+@{
+    Layout = null;
+}
+
+@foreach(var oPeople in Model)
+  {
+    <div>
+        Nombre: @oPeople.Name<br />
+        Edad: @oPeople.Age
+
+
+    </div>              
+  }
+
+
+
