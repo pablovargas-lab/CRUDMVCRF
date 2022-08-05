@@ -16,6 +16,7 @@ namespace CRUDMVCRF.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult List()
         {
             List<ListPeopleViewModel> lst = new List<ListPeopleViewModel>();
@@ -48,5 +49,29 @@ namespace CRUDMVCRF.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Save(PeopleViewModel model)
+        {
+            try
+            {
+                using (CrudMvcRFEntities db = new CrudMvcRFEntities())
+                {
+                    var oPeople = new people();
+                    oPeople.name= model.Name;
+                    oPeople.age= model.Age;
+                    db.people.Add(oPeople);
+                    db.SaveChanges();
+                }
+
+                return Content("1");
+            }
+            catch(Exception ex)
+            {
+                return Content(ex.Message);
+
+
+            }
+
+        }
     }
-}
+} 

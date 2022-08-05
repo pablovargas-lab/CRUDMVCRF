@@ -6,18 +6,54 @@
 <h2>New</h2>
 
 <form>
-
     <div class="row">
         <div class="form-group">
             @Html.LabelFor(d => d.Name)
-            @Html.TextBoxFor(d => d.Name)
+            @Html.TextBoxFor(d => d.Name, new { id = "name" })
 
         </div>
         <div class="form-group">
             @Html.LabelFor(d => d.Age)
-            @Html.TextBoxFor(d => d.Age)
+            @Html.TextBoxFor(d => d.Age, new { id = "age" })
 
         </div>
+        <input value="guardar" type="button" onclick="jsAdd()" />
 
     </div>
 </form>
+
+
+<script>
+    var url = "@Url.Content("~/People/Save")";
+    function jsAdd() {
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({
+                Name: document.getElementById("Name").value,
+                Age: document.getElementById("Age").value
+            }),
+            headers: {
+                'Accept': "application/json",
+                "Content-Type": "application/json"
+
+            }
+        }).then(function (response){
+
+            if (response.ok)
+                return response.text()
+            else
+                alert("error al ejecutar")
+        }).then(function (Data){
+            if (Data != "1") {
+                alert(Data)
+            } else {
+                document.location.href = "@Url.Content("~/People/")";
+            }
+
+        })
+
+
+    }
+
+
+</script>
