@@ -4,16 +4,15 @@
     Layout = null;
 }
 
-@foreach(var oPeople in Model)
-  {
+@foreach (var oPeople in Model)
+{
     <div>
         Nombre: @oPeople.Name<br />
         Edad: @oPeople.Age
 
-        <input type="button" value="editar" />
-        <input type="button" value="eliminar" />
-    </div>              
-  }
-
+        <input type="button" value="editar" onclick="document.location.href ='@Url.Content("~/People/Edit/"+oPeople.Id)'" />
+        <input type="button" value="eliminar" onclick="jsDelete(@oPeople.Id)" />
+    </div>
+}
 
 

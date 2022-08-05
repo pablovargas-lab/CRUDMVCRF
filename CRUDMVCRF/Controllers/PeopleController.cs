@@ -57,15 +57,15 @@ namespace CRUDMVCRF.Controllers
                 using (CrudMvcRFEntities db = new CrudMvcRFEntities())
                 {
                     var oPeople = new people();
-                    oPeople.name= model.Name;
-                    oPeople.age= model.Age;
+                    oPeople.name = model.Name;
+                    oPeople.age = model.Age;
                     db.people.Add(oPeople);
                     db.SaveChanges();
                 }
 
                 return Content("1");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Content(ex.Message);
 
@@ -73,5 +73,67 @@ namespace CRUDMVCRF.Controllers
             }
 
         }
+        public ActionResult Edit(int Id)
+        {
+            PeopleViewModel model = new PeopleViewModel();
+            using (CrudMvcRFEntities db = new CrudMvcRFEntities())
+            {
+                var oPeople = db.people.Find(Id);
+                model.Name = oPeople.name;
+                model.Age = oPeople.age;
+                model.Id = oPeople.id;
+
+            }
+
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Update(PeopleViewModel model)
+        {
+            try
+            {
+                using (CrudMvcRFEntities db = new CrudMvcRFEntities())
+                {
+                    var oPeople = db.people.Find(model.Id);
+                    oPeople.name = model.Name;
+                    oPeople.age = model.Age;
+                    db.Entry(oPeople).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                return Content("1");
+            }
+            catch (Exception ex)
+            {
+                return Content(ex.Message);
+
+
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int Id)
+        {
+            try
+            {
+                using (CrudMvcRFEntities db = new CrudMvcRFEntities())
+                {
+                    var oPeople = db.people.Find(Id);
+                    db.people.Remove(oPeople);
+
+                    db.SaveChanges();
+                }
+
+                return Content("1");
+            }
+            catch (Exception ex)
+            {
+                return Content(ex.Message);
+
+
+            }
+        }
+
+
     }
-} 
+}

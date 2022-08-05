@@ -13,7 +13,7 @@
 
 <script>
     urlGet = "@Url.Content("~/People/List")";
-    
+
 
     function Get() {
         fetch(urlGet)
@@ -26,5 +26,33 @@
     }
 
 
-    Get();
+    //eliminar
+    function jsDelete(Id) {
+
+        fetch("@Url.Content("~/People/Delete")", {
+            method: "POST",
+            body: JSON.stringify({
+                
+                Id: Id
+            }),
+            headers: {
+                'Accept': "application/json",
+                "Content-Type": "application/json"
+
+            }
+        }).then(function (response){
+
+            if (response.ok)
+                return response.text()
+            else
+                alert("error al ejecutar")
+        }).then(function (Data){
+            if (Data != "1") {
+                alert(Data)
+            } else {
+                Get();
+            }
+
+        })
+    }
 </script>

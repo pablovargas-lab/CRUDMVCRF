@@ -8,6 +8,7 @@ namespace CRUDMVCRF.Models.ViewModel
 {
     public class PeopleViewModel
     {
+        [DisplayName("Id")]
         public int Id { get; set; }
         [DisplayName("Nombre")]
         public string Name { get; set; }
